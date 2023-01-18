@@ -7,39 +7,39 @@ function App() {
   return (
     <div>
       <div id='calculator'>
-        <div id='display'>
+        <div>
         display
         </div>
         <div id='calculator-buttons'>
           <div id='row-0'>
-            <CalculatorButton id='AC' classname='AC' character='AC'/>
+            <CalculatorButton id='clear' classname='AC' character='AC'/>
             <CalculatorButton id='DEL' classname='DEL' character='DEL'/>
           </div>
           <div id='row-1'>
-            <CalculatorButton id='1' classname='1' character='1'/>
-            <CalculatorButton id='2' classname='2' character='2'/>
-            <CalculatorButton id='3' classname='3' character='3'/>
+            <CalculatorButton id='one' classname='1' character='1 '/>
+            <CalculatorButton id='two' classname='2' character='2'/>
+            <CalculatorButton id='three' classname='3' character='3'/>
           </div>
           <div id='row-2'>
-            <CalculatorButton id='4' classname='4' character='4'/>
-            <CalculatorButton id='5' classname='5' character='5'/>
-            <CalculatorButton id='6' classname='6' character='6'/>
+            <CalculatorButton id='four' classname='4' character='4'/>
+            <CalculatorButton id='five' classname='5' character='5'/>
+            <CalculatorButton id='six' classname='6' character='6'/>
           </div>
           <div id='row-3'>
-            <CalculatorButton id='7' classname='7' character='7'/>
-            <CalculatorButton id='8' classname='8' character='8'/>
-            <CalculatorButton id='9' classname='9' character='9'/>
+            <CalculatorButton id='seven' classname='7' character='7'/>
+            <CalculatorButton id='eight' classname='8' character='8'/>
+            <CalculatorButton id='nine' classname='9' character='9'/>
           </div>
           <div id='row-4'>
-            <CalculatorButton id='.' classname='.' character='.'/>
-            <CalculatorButton id='0' classname='0' character='0'/>
-            <CalculatorButton id='/' classname='/' character='/'/>
+            <CalculatorButton id='decimal' classname='.' character='.'/>
+            <CalculatorButton id='zero' classname='0' character='0'/>
+            <CalculatorButton id='divide' classname='/' character='/'/>
           </div>
           <div id='column'>
-            <CalculatorButton id='+' classname='+' character='+'/>
-            <CalculatorButton id='-' classname='-' character='-'/>
-            <CalculatorButton id='*' classname='*' character='*'/>
-            <CalculatorButton id='=' classname='=' character='='/>
+            <CalculatorButton id='add' classname='+' character='+'/>
+            <CalculatorButton id='substract' classname='-' character='-'/>
+            <CalculatorButton id='multiply' classname='*' character='*'/>
+            <CalculatorButton id='equals' classname='=' character='='/>
           </div>
         </div>
       </div>
