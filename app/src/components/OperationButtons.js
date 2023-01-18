@@ -1,4 +1,4 @@
-function CalculatorButton(props){
+function OperationButton(props){
 	return(
 		<>
 			<button id={props.id} className={props.classname}>
@@ -8,4 +8,4 @@ function CalculatorButton(props){
 	);		
 }
 
-export default CalculatorButton;
+export default OperationButton;

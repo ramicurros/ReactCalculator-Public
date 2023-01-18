@@ -1,4 +1,5 @@
 import './App.css';
+import OperationButton from './components/OperationButtons';
 import CalculatorDisplay from './components/CalculatorDisplay';
 import CalculatorButton from './components/CalculatorButton';
 
@@ -33,13 +34,13 @@ function App() {
           <div id='row-4'>
             <CalculatorButton id='decimal' classname='.' character='.'/>
             <CalculatorButton id='zero' classname='0' character='0'/>
-            <CalculatorButton id='divide' classname='/' character='/'/>
+            <OperationButton id='divide' classname='/' character='/'/>
           </div>
           <div id='column'>
-            <CalculatorButton id='add' classname='+' character='+'/>
-            <CalculatorButton id='substract' classname='-' character='-'/>
-            <CalculatorButton id='multiply' classname='*' character='*'/>
-            <CalculatorButton id='equals' classname='=' character='='/>
+            <OperationButton id='add' classname='+' character='+'/>
+            <OperationButton id='substract' classname='-' character='-'/>
+            <OperationButton id='multiply' classname='*' character='*'/>
+            <OperationButton id='equals' classname='=' character='='/>
           </div>
         </div>
       </div>
