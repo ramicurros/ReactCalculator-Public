@@ -1,20 +1,26 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-function OperationButton(props){
+function OperationButton(props) {
 
-	if(props.character === '='){
-		props.function(' ');
+
+
+	if (props.character === '=') {
+		return (
+			<>
+				<button id={props.id} className={props.classname} onClick={() => { props.function('')}}>
+					{props.character}
+				</button>
+			</>
+		);
 	} else {
-		props.function(props.character);
+		return (
+			<>
+				<button id={props.id} className={props.classname} onClick={() => { props.function(props.accumulator, props.input, props.character)}}>
+					{props.character}
+				</button>
+			</>
+		);
 	}
-
-	return(
-		<>
-			<button id={props.id} className={props.classname}>
-				{props.character}
-			</button>
-		</>
-	);		
 }
 
 export default OperationButton;

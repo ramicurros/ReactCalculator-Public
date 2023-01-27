@@ -2,3 +2,34 @@
   margin: 0;
   padding: 0;
 }
+
+#App{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1000px;
+  height: 1000px;
+}
+
+#calculator{
+  display: flex;
+  flex-direction: column;
+}
+
+.display{
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.numberDisplay{
+  height: 100px;
+  width: 200px;
+}
+
+.input{
+  height: 100px;
+  width: 200px;
+}

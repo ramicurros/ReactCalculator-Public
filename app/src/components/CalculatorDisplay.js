@@ -4,8 +4,8 @@ function CalculatorDisplay(props){
 
 	return(
 		<>
-			<div>{props.display}</div>
-			<div>{props.currentInput}</div>						
+			<div className={props.displayClass}>{props.display}</div>
+			<div className={props.inputClass}>{props.currentInput}</div>						
 		</>
 	);		
 }

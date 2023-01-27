@@ -7,25 +7,26 @@ import CalculatorButton from './components/CalculatorButton';
 
 function App() {
 
-    const [number, setNumber] = useState('');
+    const [input, setInput] = useState('');
+    const [number2, setNumber2] = useState(0);
     const [inDisplay, setInDisplay] = useState('');
-    const [result, setResult] = useState('');s
+    const [result, setResult] = useState('0');
 
-    function operationFunc(x){
-        setResult(number);
-        setInDisplay(`${result + x}`);
-        setNumber(' ');
-    }
+  	function operationFunc(x, y, z){
+      setResult(eval(`${x} ${z} ${y}`));
+      setInDisplay(`${x} ${z}`);
+      setInput('');
+  }
 
     function numberFunc(x){
-      setNumber(`${number}` + `${x}`);
+      setInput(`${input}` + `${x}`);  
     }
 
   return (
-    <div>
+    <div id='App'>
       <div id='calculator'>
-        <div id='display'>
-          <CalculatorDisplay currentInput={number} display={inDisplay}/>
+        <div id='display' className='display'>
+          <CalculatorDisplay currentInput={input} display={inDisplay} inputClass='input' displayClass='numberDisplay'/>
         </div>
         <div id='calculator-buttons'>
           <div id='row-0'>
@@ -33,7 +34,7 @@ function App() {
             <CalculatorButton id='DEL' classname='DEL' character='DEL'/>
           </div>
           <div id='row-1'>
-            <CalculatorButton id='one' classname='1' character='1 ' function={numberFunc}/>
+            <CalculatorButton id='one' classname='1' character='1' function={numberFunc}/>
             <CalculatorButton id='two' classname='2' character='2' function={numberFunc}/>
             <CalculatorButton id='three' classname='3' character='3' function={numberFunc}/>
           </div>
@@ -50,13 +51,13 @@ function App() {
           <div id='row-4'>
             <CalculatorButton id='decimal' classname='.' character='.' function={numberFunc}/>
             <CalculatorButton id='zero' classname='0' character='0' function={numberFunc}/>
-            <OperationButton id='divide' classname='/' character='/' function={operationFunc}/>
+            <OperationButton id='divide' classname='/' character='/' function={operationFunc} accumulator={result} input={input}/>
           </div>
           <div id='column'>
-            <OperationButton id='add' classname='+' character='+'  function={operationFunc}/>
-            <OperationButton id='substract' classname='-' character='-'  function={operationFunc}/>
-            <OperationButton id='multiply' classname='*' character='*'  function={operationFunc}/>
-            <OperationButton id='equals' classname='=' character='='  function={operationFunc}/>
+            <OperationButton id='add' classname='+' character='+'  function={operationFunc} accumulator={result} input={input}/>
+            <OperationButton id='substract' classname='-' character='-'  function={operationFunc} accumulator={result} input={input}/>
+            <OperationButton id='multiply' classname='*' character='*'  function={operationFunc} accumulator={result} input={input}/>
+            <OperationButton id='equals' classname='=' character='='  function={operationFunc} accumulator={result} input={input}/>
           </div>
         </div>
       </div>
