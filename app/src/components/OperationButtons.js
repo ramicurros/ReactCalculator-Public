@@ -7,7 +7,7 @@ function OperationButton(props) {
 	if (props.character === '=') {
 		return (
 			<>
-				<button id={props.id} className={props.classname} onClick={() => { props.function('')}}>
+				<button id={props.id} className={props.classname} onClick={() => { props.function()}}>
 					{props.character}
 				</button>
 			</>
@@ -15,7 +15,7 @@ function OperationButton(props) {
 	} else {
 		return (
 			<>
-				<button id={props.id} className={props.classname} onClick={() => { props.function(props.accumulator, props.input, props.character)}}>
+				<button id={props.id} className={props.classname} onClick={() => { props.function()}}>
 					{props.character}
 				</button>
 			</>
