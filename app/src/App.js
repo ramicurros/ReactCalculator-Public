@@ -8,39 +8,46 @@ export const ACTIONS = { ADD_NUMBER: 'add_number', DELETE_NUMBER: 'delete_number
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_NUMBER:
-      if (payload.digit === '0' && state.currentNumber === '0') { return state }
-      if (payload.digit === '.' && state.currentNumber.includes('.')) { return state }
-      return { ...state, currentNumber: `${currentNumber || ''}${payload.digit}` }
-    case ACTIONS.DELETE_NUMBER: return{}
+      if (payload.character === '0' && state.currentNumber === '0') { return state }
+      if (payload.character === '.' && state.currentNumber.includes('.')) { return state }
+      return { ...state, currentNumber: `${state.currentNumber || ''}${payload.character}` }
+    case ACTIONS.DELETE_NUMBER: return {}
     case ACTIONS.CLEAR: return {}
     case ACTIONS.OPERATION:
-      if (state.currentNumber === null && state.prevNumber === null) { return state }
-      if (state.prevNumber === null) { return { ...state, operation: payload.operation, prevNumber: state.currentNumber, currentNumber: null } }
-      return { ...state, operation: payload.operation, prevNumber: calculate(state), currentNumber: null }
-    case ACTIONS.SET_RESULT: return { ...state, result: state.prevNumber }
+      if (state.currentNumber == null && state.prevNumber == null) { return state }
+      if (state.prevNumber == null) { return { ...state, operation: payload.operation, prevNumber: state.currentNumber, currentNumber: null, } }
+      if (state.currentNumber == null) { return { ...state, operation: payload.operation, } }
+      return { ...state, operation: payload.operation, prevNumber: calculate(state), currentNumber: null, }
+    case ACTIONS.SET_RESULT:
+      if (state.currentNumber == null || state.prevNumber == null || state.operation == null) { return state }
+      return { ...state, currentNumber: calculate(state), prevNumber: null, operation: null, }
   }
 }
 
 function calculate(x) {
-  return eval(`${x.prevNumber}${x.operation}${x.currentNumber}`);
+  let prev = parseFloat(x.prevNumber);
+  let current = parseFloat(x.currentNumber);
+  console.log(prev);
+  if (isNaN(prev) || isNaN(current)) return '';
+  return eval(`${prev}${x.operation}${current}`).toString();
 }
 
 function App() {
 
-  const [ {currentNumber, prevNumber, operation} , dispatch] = useReducer(reducer, {})
+  const [state, dispatch] = useReducer(reducer, {})
 
 
   return (
     <div id='App'>
       <div id='calculator'>
         <div id='display' className='display'>
-          <div className='operationDisplay'>{prevNumber} {operation}</div>
-          <div className='inputDisplay'>{currentNumber}</div>
+          <div className='operationDisplay'>{state.prevNumber} {state.operation}</div>
+          <div className='inputDisplay'>{state.currentNumber}</div>
         </div>
         <div id='calculator-buttons'>
           <div id='row-0'>
-            <CalculatorButton id='clear' classname='AC' character='AC' dispatch={dispatch}/>
-            <CalculatorButton id='DEL' classname='DEL' character='DEL' dispatch={dispatch}/>
+            <CalculatorButton id='clear' classname='AC' character='AC' dispatch={dispatch} />
+            <CalculatorButton id='DEL' classname='DEL' character='DEL' dispatch={dispatch} />
           </div>
           <div id='row-1'>
             <CalculatorButton id='one' classname='1' character='1' dispatch={dispatch} />
