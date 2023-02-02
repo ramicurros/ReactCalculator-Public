@@ -1,9 +1,12 @@
-function CalculatorButton(props){
+import { ACTIONS } from "../App";
+
+function CalculatorButton({id, classname, character, dispatch}){
+
 
 	return(
 		<>
-			<button id={props.id} className={props.classname} onClick={() =>{props.function()}}>
-				{props.character}
+			<button id={id} className={ classname } onClick={() =>{dispatch({type: ACTIONS.ADD_NUMBER, payload: { character } })}}>
+				{character}
 			</button>
 		</>
 	);		

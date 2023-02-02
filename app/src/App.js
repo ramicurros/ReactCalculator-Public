@@ -1,7 +1,6 @@
 import { useReducer, useState } from 'react';
 import './App.css';
 import OperationButton from './components/OperationButtons';
-import CalculatorDisplay from './components/CalculatorDisplay';
 import CalculatorButton from './components/CalculatorButton';
 
 export const ACTIONS = { ADD_NUMBER: 'add_number', DELETE_NUMBER: 'delete_number', OPERATION: 'operation', SET_RESULT: 'set_result', CLEAR: 'clear' }
@@ -18,7 +17,7 @@ function reducer(state, { type, payload }) {
       if (state.currentNumber === null && state.prevNumber === null) { return state }
       if (state.prevNumber === null) { return { ...state, operation: payload.operation, prevNumber: state.currentNumber, currentNumber: null } }
       return { ...state, operation: payload.operation, prevNumber: calculate(state), currentNumber: null }
-    case ACTIONS.SET_RESULT: return { ...state, result: payload.result }
+    case ACTIONS.SET_RESULT: return { ...state, result: state.prevNumber }
   }
 }
 
@@ -28,7 +27,7 @@ function calculate(x) {
 
 function App() {
 
-  const [ {prevNumber, currentNumber, operation} , dispatch] = useReducer(reducer, {})
+  const [ {currentNumber, prevNumber, operation} , dispatch] = useReducer(reducer, {})
 
 
   return (
@@ -40,34 +39,34 @@ function App() {
         </div>
         <div id='calculator-buttons'>
           <div id='row-0'>
-            <CalculatorButton id='clear' classname='AC' character='AC' function={dispatch}/>
-            <CalculatorButton id='DEL' classname='DEL' character='DEL' function={dispatch}/>
+            <CalculatorButton id='clear' classname='AC' character='AC' dispatch={dispatch}/>
+            <CalculatorButton id='DEL' classname='DEL' character='DEL' dispatch={dispatch}/>
           </div>
           <div id='row-1'>
-            <CalculatorButton id='one' classname='1' character='1' function={dispatch} />
-            <CalculatorButton id='two' classname='2' character='2' function={dispatch} />
-            <CalculatorButton id='three' classname='3' character='3' function={dispatch} />
+            <CalculatorButton id='one' classname='1' character='1' dispatch={dispatch} />
+            <CalculatorButton id='two' classname='2' character='2' dispatch={dispatch} />
+            <CalculatorButton id='three' classname='3' character='3' dispatch={dispatch} />
           </div>
           <div id='row-2'>
-            <CalculatorButton id='four' classname='4' character='4' function={dispatch} />
-            <CalculatorButton id='five' classname='5' character='5' function={dispatch} />
-            <CalculatorButton id='six' classname='6' character='6' function={dispatch} />
+            <CalculatorButton id='four' classname='4' character='4' dispatch={dispatch} />
+            <CalculatorButton id='five' classname='5' character='5' dispatch={dispatch} />
+            <CalculatorButton id='six' classname='6' character='6' dispatch={dispatch} />
           </div>
           <div id='row-3'>
-            <CalculatorButton id='seven' classname='7' character='7' function={dispatch} />
-            <CalculatorButton id='eight' classname='8' character='8' function={dispatch} />
-            <CalculatorButton id='nine' classname='9' character='9' function={dispatch} />
+            <CalculatorButton id='seven' classname='7' character='7' dispatch={dispatch} />
+            <CalculatorButton id='eight' classname='8' character='8' dispatch={dispatch} />
+            <CalculatorButton id='nine' classname='9' character='9' dispatch={dispatch} />
           </div>
           <div id='row-4'>
-            <CalculatorButton id='decimal' classname='.' character='.' function={dispatch} />
-            <CalculatorButton id='zero' classname='0' character='0' function={dispatch} />
-            <OperationButton id='divide' classname='/' character='/' function={dispatch} />
+            <CalculatorButton id='decimal' classname='.' character='.' dispatch={dispatch} />
+            <CalculatorButton id='zero' classname='0' character='0' dispatch={dispatch} />
+            <OperationButton id='divide' classname='/' operation='/' dispatch={dispatch} />
           </div>
           <div id='column'>
-            <OperationButton id='add' classname='+' character='+' function={dispatch} />
-            <OperationButton id='substract' classname='-' character='-' function={dispatch} />
-            <OperationButton id='multiply' classname='*' character='*' function={dispatch} />
-            <OperationButton id='equals' classname='=' character='=' function={dispatch} />
+            <OperationButton id='add' classname='+' operation='+' dispatch={dispatch} />
+            <OperationButton id='substract' classname='-' operation='-' dispatch={dispatch} />
+            <OperationButton id='multiply' classname='*' operation='*' dispatch={dispatch} />
+            <OperationButton id='equals' classname='=' operation='=' dispatch={dispatch} />
           </div>
         </div>
       </div>
