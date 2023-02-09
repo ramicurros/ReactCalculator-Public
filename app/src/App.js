@@ -9,7 +9,10 @@ function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_NUMBER:
       if (payload.character === '0' && state.currentNumber === '0') { return state }
+      if (payload.character === '.' && state.currentNumber == null) { return {...state, currentNumber: '0.'} }
       if (payload.character === '.' && state.currentNumber.includes('.')) { return state }
+      if (`${state.currentNumber}`.length > 14) { return state }
+      if (state.currentNumber === 'ERROR') { return { ...state, currentNumber: `${payload.character}` } }
       return { ...state, currentNumber: `${state.currentNumber || ''}${payload.character}` }
     case ACTIONS.DELETE_NUMBER: return {}
     case ACTIONS.CLEAR: return {}
@@ -20,6 +23,7 @@ function reducer(state, { type, payload }) {
       return { ...state, operation: payload.operation, prevNumber: calculate(state), currentNumber: null, }
     case ACTIONS.SET_RESULT:
       if (state.currentNumber == null || state.prevNumber == null || state.operation == null) { return state }
+      if (`${state.prevNumber}`.length > 14) { return { ...state, currentNumber: 'ERROR', prevNumber: null, operation: null, } }
       return { ...state, currentNumber: calculate(state), prevNumber: null, operation: null, }
   }
 }
@@ -38,42 +42,44 @@ function App() {
 
 
   return (
-    <div id='App'>
-      <div id='calculator'>
-        <div id='display' className='display'>
-          <div className='operationDisplay'>{state.prevNumber} {state.operation}</div>
-          <div className='inputDisplay'>{state.currentNumber}</div>
+    <div id='App' className='d-flex justify-content-center App'>
+      <div id='calculator' className='d-flex align-items-center flex-column calculator-wrapper'>
+        <div id='display' className='d-flex flex-column  display'>
+          <div className='d-flex flex-row operationDisplay'>{state.prevNumber} {state.operation}</div>
+          <div className='d-flex flex-row inputDisplay'>{state.currentNumber}</div>
         </div>
-        <div id='calculator-buttons'>
-          <div id='row-0'>
-            <CalculatorButton id='clear' classname='AC' character='AC' dispatch={dispatch} />
-            <CalculatorButton id='DEL' classname='DEL' character='DEL' dispatch={dispatch} />
+        <div id='calculator-buttons' className='d-flex flex-row btn-group'>
+          <div className='d-flex flex-column btn-group-vertical row-buttons'>
+            <div id='row-0' className='btn-group rows'>
+              <CalculatorButton id='clear' classname='btn top-buttons  calculator-button' character='AC' dispatch={dispatch} />
+              <CalculatorButton id='DEL' classname='btn top-buttons calculator-button' character='DEL' dispatch={dispatch} />
+            </div>
+            <div id='row-1' className='btn-group rows'>
+              <CalculatorButton id='one' classname='btn btn-light calculator-button' character='1' dispatch={dispatch} />
+              <CalculatorButton id='two' classname='btn btn-light calculator-button' character='2' dispatch={dispatch} />
+              <CalculatorButton id='three' classname='btn btn-light calculator-button' character='3' dispatch={dispatch} />
+            </div>
+            <div id='row-2' className='btn-group rows'>
+              <CalculatorButton id='four' classname='btn btn-light calculator-button' character='4' dispatch={dispatch} />
+              <CalculatorButton id='five' classname='btn btn-light calculator-button' character='5' dispatch={dispatch} />
+              <CalculatorButton id='six' classname='btn btn-light calculator-button' character='6' dispatch={dispatch} />
+            </div>
+            <div id='row-3' className='btn-group rows'>
+              <CalculatorButton id='seven' classname='btn btn-light calculator-button' character='7' dispatch={dispatch} />
+              <CalculatorButton id='eight' classname='btn btn-light calculator-button' character='8' dispatch={dispatch} />
+              <CalculatorButton id='nine' classname='btn btn-light calculator-button' character='9' dispatch={dispatch} />
+            </div>
+            <div id='row-4' className='btn-group rows'>
+              <CalculatorButton id='decimal' classname='btn  btn-light calculator-button' character='.' dispatch={dispatch} />
+              <CalculatorButton id='zero' classname='btn btn-light calculator-button' character='0' dispatch={dispatch} />
+              <OperationButton id='divide' classname='btn  btn-light calculator-button' operation='/' dispatch={dispatch} />
+            </div>
           </div>
-          <div id='row-1'>
-            <CalculatorButton id='one' classname='1' character='1' dispatch={dispatch} />
-            <CalculatorButton id='two' classname='2' character='2' dispatch={dispatch} />
-            <CalculatorButton id='three' classname='3' character='3' dispatch={dispatch} />
-          </div>
-          <div id='row-2'>
-            <CalculatorButton id='four' classname='4' character='4' dispatch={dispatch} />
-            <CalculatorButton id='five' classname='5' character='5' dispatch={dispatch} />
-            <CalculatorButton id='six' classname='6' character='6' dispatch={dispatch} />
-          </div>
-          <div id='row-3'>
-            <CalculatorButton id='seven' classname='7' character='7' dispatch={dispatch} />
-            <CalculatorButton id='eight' classname='8' character='8' dispatch={dispatch} />
-            <CalculatorButton id='nine' classname='9' character='9' dispatch={dispatch} />
-          </div>
-          <div id='row-4'>
-            <CalculatorButton id='decimal' classname='.' character='.' dispatch={dispatch} />
-            <CalculatorButton id='zero' classname='0' character='0' dispatch={dispatch} />
-            <OperationButton id='divide' classname='/' operation='/' dispatch={dispatch} />
-          </div>
-          <div id='column'>
-            <OperationButton id='add' classname='+' operation='+' dispatch={dispatch} />
-            <OperationButton id='substract' classname='-' operation='-' dispatch={dispatch} />
-            <OperationButton id='multiply' classname='*' operation='*' dispatch={dispatch} />
-            <OperationButton id='equals' classname='=' operation='=' dispatch={dispatch} />
+          <div id='operation-buttons' className='d-flex flex-column btn-group-vertical column-buttons'>
+            <OperationButton id='add' classname='btn  operation-button calculator-button' operation='+' dispatch={dispatch} />
+            <OperationButton id='substract' classname='btn  operation-button calculator-button' operation='-' dispatch={dispatch} />
+            <OperationButton id='multiply' classname='btn  operation-button calculator-button' operation='*' dispatch={dispatch} />
+            <OperationButton id='equals' classname='btn  calculator-button' operation='=' dispatch={dispatch} />
           </div>
         </div>
       </div>
