@@ -11,10 +11,13 @@ function reducer(state, { type, payload }) {
       if (payload.character === '0' && state.currentNumber === '0') { return state }
       if (payload.character === '.' && state.currentNumber == null) { return {...state, currentNumber: '0.'} }
       if (payload.character === '.' && state.currentNumber.includes('.')) { return state }
-      if (`${state.currentNumber}`.length > 14) { return state }
+      if (`${state.currentNumber}`.length > 22) { return state }
       if (state.currentNumber === 'ERROR') { return { ...state, currentNumber: `${payload.character}` } }
       return { ...state, currentNumber: `${state.currentNumber || ''}${payload.character}` }
-    case ACTIONS.DELETE_NUMBER: return {}
+    case ACTIONS.DELETE_NUMBER:
+      if(state.currentNumber == null){return state}
+      if(`${state.currentNumber}`.length === 1){return {...state, currentNumber: null}}
+      return {...state, currentNumber: state.currentNumber.slice(0,-1)}
     case ACTIONS.CLEAR: return {}
     case ACTIONS.OPERATION:
       if (state.currentNumber == null && state.prevNumber == null) { return state }
@@ -23,7 +26,7 @@ function reducer(state, { type, payload }) {
       return { ...state, operation: payload.operation, prevNumber: calculate(state), currentNumber: null, }
     case ACTIONS.SET_RESULT:
       if (state.currentNumber == null || state.prevNumber == null || state.operation == null) { return state }
-      if (`${state.prevNumber}`.length > 14) { return { ...state, currentNumber: 'ERROR', prevNumber: null, operation: null, } }
+      if (`${state.prevNumber}`.length > 22) { return { ...state, currentNumber: 'ERROR', prevNumber: null, operation: null, } }
       return { ...state, currentNumber: calculate(state), prevNumber: null, operation: null, }
   }
 }
